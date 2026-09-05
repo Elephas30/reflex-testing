@@ -1,0 +1,14 @@
+{
+  "name": "reflex-testing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Edge-case and trade-off evidence testing for the Reflex backend — Task 3 (Maina). Standalone: shares no dependencies with reflex-backend or reflex-frontend.",
+  "scripts": {
+    "test": "node test-edge-cases.mjs"
+  },
+  "dependencies": {
+    "pngjs": "7.0.0",
+    "jsqr": "1.4.0"
+  }
+}
