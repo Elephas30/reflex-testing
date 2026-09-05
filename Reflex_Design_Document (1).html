@@ -1,0 +1,278 @@
+<style>
+  :root{
+    --ink:#0E2238;
+    --paper:#F4F6F5;
+    --line:#274A63;
+    --blueprint:#0E2238;
+    --cyan:#5EEAD4;
+    --cyan-dim:#2E8B7F;
+    --amber:#F2A65A;
+    --grid: rgba(94,234,212,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',-apple-system,sans-serif;
+    line-height:1.5;
+  }
+  .doc{
+    max-width:760px;
+    margin:0 auto;
+    padding:56px 28px 120px;
+  }
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--cyan-dim);
+    letter-spacing:0.02em;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:600;
+    font-size:38px;
+    letter-spacing:-0.01em;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .subtitle{
+    font-size:16.5px;
+    color:#3E5875;
+    max-width:56ch;
+    margin:0 0 40px;
+  }
+  h2{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:600;
+    font-size:21px;
+    margin:64px 0 6px;
+    padding-bottom:12px;
+    border-bottom:1px solid #D3DAD8;
+    color:var(--ink);
+  }
+  .h2-num{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--cyan-dim);
+    font-size:14px;
+    margin-right:10px;
+  }
+  p{ font-size:15px; color:#243B52; max-width:64ch; }
+  .lede{ font-size:15.5px; color:#3E5875; margin-top:0; margin-bottom:28px; max-width:60ch;}
+
+  /* ---- blueprint panel ---- */
+  .blueprint{
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0/28px 28px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/28px 28px,
+      var(--blueprint);
+    border-radius:2px;
+    padding:32px;
+    margin:20px 0 8px;
+    color:#DCEEEA;
+    overflow-x:auto;
+  }
+  .bp-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--cyan);
+    letter-spacing:0.04em;
+    margin-bottom:18px;
+  }
+
+  /* three services diagram */
+  .services{
+    display:flex;
+    gap:18px;
+    align-items:stretch;
+    min-width:600px;
+  }
+  .svc{
+    flex:1;
+    border:1px solid var(--cyan-dim);
+    padding:16px 14px;
+    position:relative;
+  }
+  .svc-name{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--cyan); margin-bottom:6px;}
+  .svc-desc{ font-size:12.5px; color:#A9C4C0; line-height:1.5;}
+  .svc-owner{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--amber); margin-top:12px;}
+  .arrow-row{
+    display:flex; justify-content:center; align-items:center;
+    min-width:600px; margin:6px 0; font-family:'IBM Plex Mono',monospace;
+    font-size:11px; color:#7FA79E;
+  }
+
+  /* lifecycle diagram */
+  .lifecycle{ display:flex; min-width:640px; align-items:flex-start; }
+  .stage{
+    flex:1; text-align:center; position:relative; padding:0 4px;
+  }
+  .stage-box{
+    border:1px solid var(--cyan-dim);
+    padding:10px 6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--cyan);
+  }
+  .stage-who{
+    font-size:10.5px; color:#A9C4C0; margin-top:6px;
+  }
+  .stage-line{
+    position:absolute; top:20px; right:-50%; width:100%; height:1px;
+    background:var(--cyan-dim);
+  }
+  .stage-line::after{
+    content:'';
+    position:absolute; right:0; top:-3px;
+    border-left:5px solid var(--cyan-dim);
+    border-top:3px solid transparent; border-bottom:3px solid transparent;
+  }
+
+  /* entity table */
+  table{ width:100%; border-collapse:collapse; margin:18px 0 8px; font-size:13.5px;}
+  th{ text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--cyan-dim); text-transform:none; padding:8px 10px; border-bottom:1px solid #274A63; background:#0E2238; color:var(--cyan);}
+  td{ padding:9px 10px; border-bottom:1px solid #D3DAD8; color:#243B52; vertical-align:top;}
+  tr:nth-child(odd) td{ background:#EBEEEC; }
+  .mono{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#0E2238;}
+
+  /* wireframes */
+  .wire-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px;}
+  @media (max-width:600px){ .wire-grid{ grid-template-columns:1fr; } }
+  .wire{
+    border:1px solid #B9C4C1;
+    background:#fff;
+    padding:14px;
+  }
+  .wire-title{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--cyan-dim); margin-bottom:10px; padding-bottom:8px; border-bottom:1px dashed #B9C4C1;}
+  .wire-row{ display:flex; gap:8px; margin-bottom:8px; }
+  .wire-block{ border:1px solid #C7D0CD; background:#F4F6F5; font-size:10px; color:#5C6F68; padding:8px 6px; flex:1; text-align:center;}
+  .wire-block.tall{ height:46px; display:flex; align-items:center; justify-content:center;}
+  .wire-block.accent{ border-color:var(--cyan-dim); color:var(--cyan-dim); font-family:'IBM Plex Mono',monospace;}
+
+  .note{
+    font-size:13px; color:#3E5875; background:#EAF3F1; border-left:3px solid var(--cyan-dim);
+    padding:10px 14px; margin:18px 0;
+  }
+  .note b{ color:var(--ink); }
+
+  footer{
+    margin-top:70px; padding-top:20px; border-top:1px solid #D3DAD8;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#7FA79E;
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="doc">
+
+  <div class="kicker">REFLEX &nbsp;·&nbsp; SYSTEM DESIGN DOCUMENT</div>
+  <h1>How Reflex is structured</h1>
+  <p class="subtitle">A real-time delivery coordination system for Kenyan retailers, replacing WhatsApp-based dispatching. This document covers the service architecture, the order lifecycle, core data, and the four screens a person actually uses.</p>
+
+  <h2><span class="h2-num">01</span>Architecture — three independent services</h2>
+  <p class="lede">Reflex is deliberately split into three services that don't share code or dependencies. Each is its own repository and can be built, tested, and deployed without touching the others.</p>
+
+  <div class="blueprint">
+    <div class="bp-label">SERVICE MAP</div>
+    <div class="services">
+      <div class="svc">
+        <div class="svc-name">reflex-backend</div>
+        <div class="svc-desc">REST API. Owns all state: requests, assignments, QR tokens, tracking codes. In-memory store, deployed on Render.</div>
+        <div class="svc-owner">OWNER: DOMISIANO</div>
+      </div>
+      <div class="svc">
+        <div class="svc-name">reflex-frontend</div>
+        <div class="svc-desc">Web client. Retailer, dispatcher, and rider views, plus the public no-login tracking page. Talks to the backend over HTTP only.</div>
+        <div class="svc-owner">OWNER: GENESIS</div>
+      </div>
+      <div class="svc">
+        <div class="svc-name">reflex-testing</div>
+        <div class="svc-desc">Standalone Node script. Hits the live backend over HTTP to prove edge cases and produce trade-off evidence.</div>
+        <div class="svc-owner">OWNER: MAINA</div>
+      </div>
+    </div>
+    <div class="arrow-row">— all three talk over plain HTTP, never shared code —</div>
+  </div>
+
+  <p>This shape is the actual security/trade-off story worth telling the panel: nobody can accidentally break another person's build, and the testing suite is proof the API contract holds even from a completely outside caller — the same as a real client would be.</p>
+
+  <h2><span class="h2-num">02</span>Order lifecycle</h2>
+  <p class="lede">Every delivery request moves through five stages, each one gated so it can't be skipped or done twice.</p>
+
+  <div class="blueprint">
+    <div class="bp-label">STATE FLOW</div>
+    <div class="lifecycle">
+      <div class="stage"><div class="stage-line"></div>
+        <div class="stage-box">RECEIVED</div>
+        <div class="stage-who">retailer creates</div>
+      </div>
+      <div class="stage"><div class="stage-line"></div>
+        <div class="stage-box">ASSIGNED</div>
+        <div class="stage-who">dispatcher → rider</div>
+      </div>
+      <div class="stage"><div class="stage-line"></div>
+        <div class="stage-box">PICKED UP</div>
+        <div class="stage-who">rider confirms</div>
+      </div>
+      <div class="stage"><div class="stage-line"></div>
+        <div class="stage-box">OUT FOR DELIVERY</div>
+        <div class="stage-who">rider en route</div>
+      </div>
+      <div class="stage">
+        <div class="stage-box">DELIVERED</div>
+        <div class="stage-who">QR scan confirms</div>
+      </div>
+    </div>
+  </div>
+
+  <p>The last transition is the one worth designing around: the rider doesn't just tap "delivered" — they scan a QR code the retailer generated for that specific request, and the backend checks the scanned token against the real one before accepting it. A guessed or reused token is rejected; a repeat scan of the correct one is a safe no-op, not a duplicate delivery.</p>
+
+  <div class="note"><b>Access control, not just flow control:</b> a rider can only act on a request assigned to them (HTTP 403 otherwise), and a request can't be reassigned once it's already assigned (HTTP 409) — both enforced server-side, not just hidden in the UI.</div>
+
+  <h2><span class="h2-num">03</span>Core data</h2>
+  <p class="lede">Four things the system tracks. Everything else in the API is an action performed on one of these.</p>
+
+  <table>
+    <tr><th>Entity</th><th>Holds</th><th>Who can see it</th></tr>
+    <tr><td class="mono">Request</td><td>Customer name/phone, address, item, current stage, assigned rider</td><td>Retailer who created it, assigned rider, dispatcher</td></tr>
+    <tr><td class="mono">User / Role</td><td>Phone + password, role: retailer / dispatcher / rider</td><td>Self only, via login</td></tr>
+    <tr><td class="mono">QR Token</td><td>One-time proof-of-delivery secret, tied to a request</td><td>Never exposed publicly — only decoded from the generated image</td></tr>
+    <tr><td class="mono">Tracking Code</td><td>Public-safe reference for a request, no internal IDs attached</td><td>Anyone with the code — zero login required</td></tr>
+  </table>
+
+  <h2><span class="h2-num">04</span>The four screens</h2>
+  <p class="lede">Low-fidelity structure for each role's view — what's on screen, not final visual design.</p>
+
+  <div class="wire-grid">
+    <div class="wire">
+      <div class="wire-title">RETAILER DASHBOARD</div>
+      <div class="wire-row"><div class="wire-block accent">+ New request</div></div>
+      <div class="wire-row"><div class="wire-block tall">Request list — status per row</div></div>
+      <div class="wire-row"><div class="wire-block">QR code</div><div class="wire-block">Tracking link</div></div>
+    </div>
+    <div class="wire">
+      <div class="wire-title">DISPATCHER BOARD</div>
+      <div class="wire-row"><div class="wire-block tall">Unassigned requests</div></div>
+      <div class="wire-row"><div class="wire-block accent">Assign → rider picker</div></div>
+      <div class="wire-row"><div class="wire-block">Rider load / active jobs</div></div>
+    </div>
+    <div class="wire">
+      <div class="wire-title">RIDER VIEW</div>
+      <div class="wire-row"><div class="wire-block tall">My assigned deliveries</div></div>
+      <div class="wire-row"><div class="wire-block accent">Mark picked up / out for delivery</div></div>
+      <div class="wire-row"><div class="wire-block">Scan QR to confirm</div></div>
+    </div>
+    <div class="wire">
+      <div class="wire-title">CUSTOMER TRACKER (no login)</div>
+      <div class="wire-row"><div class="wire-block tall">Status: Received → ... → Delivered</div></div>
+      <div class="wire-row"><div class="wire-block">Enter tracking code</div></div>
+    </div>
+  </div>
+
+  <footer>
+    REFLEX &nbsp;·&nbsp; TEAM COMPEERS &nbsp;·&nbsp; DOMISIANO &nbsp;/&nbsp; GENESIS &nbsp;/&nbsp; MAINA &nbsp;/&nbsp; MELAS &nbsp;/&nbsp; GRACE
+  </footer>
+
+</div>
